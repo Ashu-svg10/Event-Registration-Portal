@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: auto;
+            background-image: url("howls.jpg");
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-repeat: no-repeat;
+            background-position: center bottom;
+            background-size: cover;
+
+        }
+
+        @keyframes magicalGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 12px rgba(127, 255, 212, 0.6), 0 0 30px rgba(0, 255, 180, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 24px rgba(127, 255, 212, 1), 0 0 60px rgba(0, 255, 180, 0.7);
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+
+        .container {
+            animation: magicalGlow 3s ease-in-out infinite;
+            max-width: 500px;
+            text-align: center;
+            margin-top: 20vh;
+            margin-bottom: 30vh;
+            background: rgba(127, 255, 212, 0.564);
+            border-radius: 18px;
+            box-shadow: 0 4px 40px rgba(47, 0, 80, 0.11);
+            padding: 30px;
+            width: 50%;
+            margin-left: 100px;
+        }
+
+        .nyxora-gif {
+            animation: float 4s ease-in-out infinite;
+            width: 350px;
+            height: auto;
+            vertical-align: middle;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 0.7em 2em;
+            font-size: 1.2em;
+            background: rgba(10, 74, 53, 0.463);
+            color: skyblue;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 2em;
+            transition: background 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button:hover {
+            background: rgb(2, 67, 46);
+            color: rgb(34, 227, 227);
+            left: 125%;
+            transition: left 0.75s;
+
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.8) 60%, rgba(255, 255, 255, 0));
+            transform: skewX(-25deg);
+            transition: left 0.5s;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+
+        <img src="nyxora2.png" class="nyxora-gif">
+        <BR>
+        <button onclick="location.href='events.html'">Explore Events</button>
+    </div>
+</body>
+
+</html>
