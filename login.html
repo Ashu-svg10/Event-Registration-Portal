@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.cdnfonts.com/css/billabong" rel="stylesheet" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
+
+    <title>Sign in with Email</title>
+    <style>
+      .background {
+        background-position: center;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+      }
+
+      .container {
+        background-image: url("hallow.jpg");
+        background-size: cover; /* makes image cover the entire container */
+        background-position: center; /* centers the image */
+        padding-left: 3em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .card {
+        padding: 2rem;
+        padding-right: 3.5rem;
+        border-radius: 20px;
+        box-shadow: 0 8px 24px rgba(218, 179, 4, 0.644);
+        max-width: 340px;
+        width: 90%;
+        text-align: center;
+        backdrop-filter: blur(4px);
+      }
+
+      .icon {
+        font-family: "Pacifico", cusive;
+        font-size: 30px;
+        margin-bottom: 10px;
+      }
+
+      h2 {
+        color: #f0c674;
+        font-family: "Pacifico", cusive;
+        margin-bottom: 6px;
+        padding-bottom: 1em;
+      }
+
+      .input-group {
+        position: relative;
+        margin-bottom: 15px;
+      }
+
+      .input-group input {
+        background-color: #cccccc3c;
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #dddddd76;
+        border-radius: 8px;
+        font-size: 14px;
+      }
+
+      .input-group span {
+        position: absolute;
+        right: 12px;
+        top: 12px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      
+
+      button[type="submit"] {
+        width: 100%;
+        padding: 12px;
+        background: #111;
+        color: white;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 15px;
+      }
+
+      button[type="submit"]:hover {
+        background: #333;
+      }
+
+      .divider {
+        margin: 20px 0;
+        font-size: 0.85rem;
+        color: #363131;
+        font-weight: 800;
+      }
+
+      .signup {
+        width: auto;
+        padding: 12px;
+        border: 1px solid #ccc;
+        background: rgba(255, 255, 255, 0.197);
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 15px;
+      }
+
+      .signup:hover {
+        background: radial-gradient(#ffba30, rgb(132, 60, 2));
+      }
+    </style>
+  </head>
+  <body>
+    <div class="background"></div>
+
+    <div class="container">
+      <div class="card">
+        <div class="icon">NYXORA</div>
+        <h2>Sign in</h2>
+
+        <form id="loginForm">
+          <div class="input-group">
+            <input type="email" id="email" placeholder="✉ Email" required />
+          </div>
+          <div class="input-group">
+            <span class="icon"><i class="fa fa-lock"></i></span>
+            <input
+              type="password"
+              id="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+          <button type="submit">Get Started</button>
+        </form>
+
+        <div class="divider">don't have any account</div>
+
+        <div>
+          <button class="signup">Sign up</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
