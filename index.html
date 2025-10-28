@@ -4,87 +4,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Welcome to NYXORA</title>
+
     <style>
-        body {
+        /*  Background video setup */
+        #bg-video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
             height: auto;
-            background-image: url("howls.jpg");
+            z-index: -1;
+            object-fit: cover;
+        }
+
+        /* Dark overlay for readability */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 0;
+        }
+
+        /* General body style */
+        body {
             font-family: 'Segoe UI', sans-serif;
             margin: 0;
             padding: 0;
-            background-repeat: no-repeat;
-            background-position: center bottom;
-            background-size: cover;
-
+            height: 100vh;
+            overflow-x: hidden;
+            color: white;
         }
 
-        @keyframes magicalGlow {
-
-            0%,
-            100% {
-                box-shadow: 0 0 12px rgba(127, 255, 212, 0.6), 0 0 30px rgba(0, 255, 180, 0.4);
-            }
-
-            50% {
-                box-shadow: 0 0 24px rgba(127, 255, 212, 1), 0 0 60px rgba(0, 255, 180, 0.7);
-            }
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-15px);
-            }
-        }
-
-
+        /* Container with soft glow and hover effects */
         .container {
-            animation: magicalGlow 3s ease-in-out infinite;
             max-width: 500px;
             text-align: center;
-            margin-top: 20vh;
-            margin-bottom: 30vh;
-            background: rgba(127, 255, 212, 0.564);
+            margin: 20vh auto;
+            background: rgba(219, 127, 255, 0.151);
             border-radius: 18px;
-            box-shadow: 0 4px 40px rgba(47, 0, 80, 0.11);
+            box-shadow: 0 0 20px rgb(153, 1, 254);
             padding: 30px;
             width: 50%;
-            margin-left: 100px;
+            transition: box-shadow 0.8s ease-in-out, transform 0.8s ease-in-out;
+            position: relative;
+            z-index: 1;
         }
 
+        /* When hovered, glow becomes stronger and moves up */
+        .container:hover {
+            box-shadow: 0 0 35px rgba(166, 0, 255, 0.799), 0 0 60px rgba(149, 3, 234, 0.8);
+            transform: translateY(-10px);
+        }
+
+        /* Floating image (simple hover movement) */
         .nyxora-gif {
-            animation: float 4s ease-in-out infinite;
-            width: 350px;
+            width: 450px;
             height: auto;
-            vertical-align: middle;
             margin-top: 10px;
+            transition: transform 0.8s ease-in-out;
         }
 
+        .nyxora-gif:hover {
+            transform: translateY(-15px);
+        }
+
+        /* Button styling */
         button {
             padding: 0.7em 2em;
             font-size: 1.2em;
-            background: rgba(10, 74, 53, 0.463);
-            color: skyblue;
+            background: rgba(222, 126, 16, 0.463);
+            color: rgb(172, 135, 235);
             border: none;
             border-radius: 10px;
             cursor: pointer;
             margin-top: 2em;
-            transition: background 0.2s;
+            transition: background 0.2s, color 0.2s;
             position: relative;
             overflow: hidden;
         }
 
         button:hover {
-            background: rgb(2, 67, 46);
-            color: rgb(34, 227, 227);
-            left: 125%;
-            transition: left 0.75s;
-
+            background: rgb(207, 134, 16);
+            color: rgb(121, 34, 227);
         }
 
         button::before {
@@ -94,20 +102,32 @@
             left: -75%;
             width: 50%;
             height: 100%;
-            background: linear-gradient(120deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.8) 60%, rgba(255, 255, 255, 0));
+            background: linear-gradient(120deg,
+                    rgba(255, 255, 255, 0.4) 0%,
+                    rgba(255, 255, 255, 0.8) 60%,
+                    rgba(255, 255, 255, 0));
             transform: skewX(-25deg);
             transition: left 0.5s;
         }
-    </style>
 
+        button:hover::before {
+            left: 125%;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
+    <!-- Video background -->
+    <video autoplay muted loop id="bg-video">
+        <source src="video.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
 
-        <img src="nyxora2.png" class="nyxora-gif">
-        <BR>
-        <button onclick="location.href='events.html'">Explore Events</button>
+    <!-- Glowing container -->
+    <div class="container">
+        <img src="nyxora.png" class="nyxora-gif" alt="Nyxora Image">
+        <br>
+        <button onclick="location.href='signup.html'">Explore Events</button>
     </div>
 </body>
 
