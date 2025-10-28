@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Events - Carousel Template</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Pacifico&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            margin: 0;
+            padding-top: 20px;
+            line-height: 1.4;
+            background-color: rgba(0, 0, 0, 0);
+            color: #222;
+        }
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 1000px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .2);
+            backdrop-filter: blur(5px);
+        }
+        .main-content h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 3em;
+            color: #fdf9fd;
+            text-shadow: 0 0 5px #000000, 0 0 10px #e906f1;
+            margin-bottom: 20px;
+        }
+        .carousel-container {
+            width: 100%;
+            max-width: 950px;
+            margin: 20px auto;
+            overflow: hidden;
+            position: relative;
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform .5s ease-in-out;
+            padding: 10px 0;
+        }
+        .event-card-wrapper {
+            flex: 0 0 33.333%;
+            max-width: 300px;
+            margin: 0 10px;
+            box-sizing: border-box;
+            cursor: pointer;
+            transition: transform .3s;
+        }
+        @media (max-width:767px) {
+            .event-card-wrapper {
+                flex: 0 0 100%;
+                max-width: none;
+                padding: 0 40px;
+                margin: 0;
+            }
+        }
+        .event-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .2);
+            position: relative;
+            height: 450px;
+        }
+        .event-card:hover {
+            transform: scale(1.03);
+        }
+        .event-poster {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #060606;
+            font-size: 20px;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            line-height: 1.2;
+        }
+        .event-poster strong {
+            display: block;
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+        /* POSTER STYLES WITH CONTRAST CORRECTIONS */
+        .poster-logic-leap {
+            background: radial-gradient(#0ff3e7, #157ff0);
+        }
+        /* Scavenger Hunt */
+        .poster-fabel-ferris {
+            background: radial-gradient(#04e917, #202ae4);
+        }
+        /* Trivia */
+        .poster-blue {
+            background: radial-gradient(#4fb5f0, #c720e4);
+        }
+        /* E-Sports */
+        .poster-dark-purple {
+            background: radial-gradient(#fb565e, #dae420);
+        }
+        /* Open Mic */
+        .poster-red-orange {
+            background: radial-gradient(#23d9ed, #ef0d3a);
+        }
+        /* Dance Mixer */
+        .poster-meme-gagement {
+            background: radial-gradient(#ffea00, #ea1111);
+            color: #333;
+        }
+        /* DIY */
+        .poster-light-red {
+            background: radial-gradient(#ef9c3d, #09cbf2);
+            color: #333;
+        }
+        /* Breakfast Bar */
+        .poster-green {
+            background: radial-gradient(#b6b5a9, #750707);
+            color: #333;
+        }
+        /* Graffiti */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, .5);
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 1.5em;
+            font-weight: bold;
+            border-radius: 4px;
+            opacity: .8;
+            transition: opacity .3s;
+        }
+        .carousel-btn:hover {
+            opacity: 1;
+        }
+        .prev-btn {
+            left: 0;
+        }
+        .next-btn {
+            right: 0;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, .8);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+            position: relative;
+        }
+        .small-modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 8px;
+            position: relative;
+        }
+        .guidelines-content h3 {
+            color: #791e86;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+            margin-top: 15px;
+        }
+        .guidelines-content ul {
+            text-align: left;
+            padding-left: 20px;
+        }
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            line-height: 20px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+        .event-details-section {
+            padding-top: 20px;
+            text-align: center;
+        }
+        .event-details-section h2 {
+            color: #791e86;
+        }
+        .event-details-section p {
+            margin: 5px 0;
+        }
+        .detail-buttons a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color .3s;
+        }
+        .register-btn {
+            background-color: #3b9e4a;
+            color: #fff;
+        }
+        .guidelines-btn {
+            background-color: #0077cc;
+            color: #fff;
+            border: 1px solid #0077cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <h1>Upcoming Events</h1>
+        <div class="carousel-container">
+            <div class="carousel-track">
+                <div class="event-card-wrapper" onclick="openModal('Pop Culture Trivia Event')">
+                    <article class="event-card">
+                        <div class="event-poster poster-fabel-ferris">
+                            <p><strong>Pop Culture Trivia Event</strong><br>Venue: Auditorium | Date: 10th Mar<br>Win Cool Goodies!</p>
+                        </div>
+                    </article>
+                </div>
+                <div class="event-card-wrapper" onclick="openModal('DIY Dorm Decor Event')">
+                    <article class="event-card">
+                        <div class="event-poster poster-meme-gagement">
+                            <p><strong>DIY Dorm Decor Event</strong><br>Venue: Arts Studio | Date: 20th Feb<br>Material Provided</p>
+                        </div>
+                    </article>
+                </div>
+                <div class="event-card-wrapper" onclick="openModal('E-Sports Tournament')">
+                    <article class="event-card">
+                        <div class="event-poster poster-blue">
+                            <p><strong>E-Sports Tournament</strong><br>Venue: Gaming Lounge | Date: 5th-7th Mar<br>Prize Pool ₹ 15,000</p>
+                        </div>
+                    </article>
+                </div>
+                <div class="event-card-wrapper" onclick="openModal('Campus Scavenger Hunt Event')">
+                    <article class="event-card">
+                        <div class="event-poster poster-logic-leap">
+                            <p><strong>Campus Scavenger Hunt Event</strong><br>Venue: Starting Gate | Date: 29th Feb<br>Prizes for the Fastest!</p>
+                        </div>
+                    </article>
+                </div>
+                <div class="event-card-wrapper" onclick="openModal('Open Mic Event')">
+                    <article class="event-card">
+                        <div class="event-poster poster-dark-purple">
+                            <p><strong>Open Mic Event</strong><br>Venue: Cafeteria Stage | Date: 22nd Feb<br>Show Your Talent!</p>
+                        </div>
+                    </article>
+                </div>
+                <div class="event-card-wrapper" onclick="openModal('Late-Night Breakfast Event')">
+                    <article class="event-card">
+                        <div class="event-poster poster-light-red">
+                            <p><strong>Late-Night Breakfast Event</strong><br>Venue: Dining Hall | Date: 2nd Mar<br>Free Waffles & Coffee!</p>
+                        </div>
+                    </article>
+                </div>
+                <div class="event-card-wrapper" onclick="openModal('Theme Dance Mixer Event')">
+                    <article class="event-card">
+                        <div class="event-poster poster-red-orange">
+                            <p><strong>Theme Dance Mixer Event</strong><br>Venue: Student Centre | Date: 15th Mar<br>Dance & Socialize!</p>
+                        </div>
+                    </article>
+                </div>
+                <div class="event-card-wrapper" onclick="openModal('Graffiti Wall Art Event')">
+                    <article class="event-card">
+                        <div class="event-poster poster-green">
+                            <p><strong>Graffiti Wall Art Event</strong><br>Venue: Quad Area | Date: 8th Mar<br>All Supplies Provided</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <button class="carousel-btn prev-btn">&lt;</button>
+            <button class="carousel-btn next-btn">&gt;</button>
+        </div>
+    </div>
+    <div id="eventModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('eventModal')">&times;</span>
+            <div class="event-details-section">
+                <h2 id="modalEventTitle">Event Title Placeholder</h2>
+                <p id="modalEventMeta">
+                    <span id="modalVenue">Venue: TBD</span> | <span id="modalDate">Date: TBD</span>
+                </p>
+                <p id="modalEventDescription">Event description will appear here.</p>
+                <div class="detail-buttons">
+                    <a href="#" class="register-btn" id="modalRegisterBtn" target="_blank">Register Now!</a>
+                    <a href="#" class="guidelines-btn" id="modalGuidelinesBtn"
+                        onclick="openGuidelinesModal(); return false;">Guidelines</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="guidelinesModal" class="modal">
+        <div class="small-modal-content">
+            <span class="close-btn" onclick="closeModal('guidelinesModal')">&times;</span>
+            <div class="event-details-section">
+                <h2>Registration and Attendance Guidelines</h2>
+                <div class="guidelines-content" style="text-align: left;">
+                    <ul>
+                        <li>Confirmation: Please ensure you receive a confirmation email or QR code after registering.You will need this for check-in.</li>
+                        <li>Check-in: Arrive at least 15-30 minutes before the scheduled start time to allow for check-in and seating.</li>
+                        <li>Ticket Transfer: If you need to transfer your ticket, please notify the organizing team at least 48 hours prior to the event start.</li>
+                        <li>Identification: Bring a valid photo ID (e.g., driver's license, student ID) for verification if required.</li>
+                        <li>Cancellations/Refunds: All sales are generally final unless otherwise stated. Refer to the event's specific refund policy for details.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const track = document.querySelector('.carousel-track'),
+                slides = Array.from(document.querySelectorAll('.event-card-wrapper')),
+                nextButton = document.querySelector('.next-btn'),
+                prevButton = document.querySelector('.prev-btn');
+            let currentSlideIndex = 0;
+            const moveToSlide = (targetIndex) => {
+                const totalSlides = slides.length;
+                if (targetIndex >= totalSlides) {
+                    targetIndex = 0;
+                } else if (targetIndex < 0) {
+                    targetIndex = totalSlides - 1;
+                }
+                currentSlideIndex = targetIndex;
+                const targetPosition = slides[targetIndex].offsetLeft;
+                track.style.transform = `translateX(-${targetPosition}px)`;
+            };
+            nextButton.addEventListener('click', () => { moveToSlide(currentSlideIndex + 1); });
+            prevButton.addEventListener('click', () => { moveToSlide(currentSlideIndex - 1); });
+            window.addEventListener('resize', () => {
+                const targetPosition = slides[currentSlideIndex].offsetLeft;
+                track.style.transform = `translateX(-${targetPosition}px)`;
+            });
+            moveToSlide(0);
+        });
+        const eventModal = document.getElementById('eventModal'),
+            guidelinesModal = document.getElementById('guidelinesModal'),
+            modalTitle = document.getElementById('modalEventTitle'),
+            modalDesc = document.getElementById('modalEventDescription'),
+            modalVenue = document.getElementById('modalVenue'),
+            modalDate = document.getElementById('modalDate'),
+            modalRegisterBtn = document.getElementById('modalRegisterBtn');
+
+        // The event details modal
+        function openModal(eventName) {
+            modalTitle.textContent = eventName;
+            let venue = 'TBD', date = 'TBD', description = 'More details and timings will be finalized soon.';
+            let registerLink = '#';
+            if (eventName === 'Pop Culture Trivia Event') {
+                venue = 'Auditorium';
+                date = '10th Mar, 7:00 PM';
+                description = 'Gather your team and test your knowledge on everything from the latest movies and web series to classic 90s memes. Fun prizes guaranteed!';
+            } else if (eventName === 'DIY Dorm Decor Event') {
+                venue = 'Arts Studio';
+                date = '20th Feb, 3:00 PM';
+                description = 'Get creative! Learn to make trendy and budget-friendly decor like custom posters, mood boards, or simple crafts for your dorm room.';
+                registerLink = 'https://docs.google.com/forms/d/e/1FAIpQLSf8EuhfcszfHaegAxedyTcKNT3YEN6CMPonzORO3hfehZA8NA/viewform?usp=publish-editor';
+            } else if (eventName === 'E-Sports Tournament') {
+                venue = 'Gaming Lounge';
+                date = '5th-7th Mar, 10:00 AM';
+                description = 'The ultimate gaming showdown in titles like Valorant, FIFA, and BGMI. Compete for major cash prizes and campus glory. Registrations close soon!';
+            } else if (eventName === 'Campus Scavenger Hunt Event') {
+                venue = 'Starting Gate';
+                date = '29th Feb, 4:00 PM';
+                description = 'Solve cryptic clues and race against time across the entire campus. A great way to meet new people and discover hidden spots on campus.';
+            } else if (eventName === 'Open Mic Event') {
+                venue = 'Cafeteria Stage';
+                date = '22nd Feb, 6:30 PM';
+                description = 'Share your voice! Sing, play an instrument, recite poetry, or perform stand-up comedy in a relaxed and supportive environment. Sign up required.';
+            } else if (eventName === 'Late-Night Breakfast Event') {
+                venue = 'Dining Hall';
+                date = '2nd Mar, 10:00 PM';
+                description = 'Free pancakes, waffles, coffee, and comfort food! A perfect fuel stop during late-night study sessions or a fun midnight snack event.';
+            } else if (eventName === 'Theme Dance Mixer Event') {
+                venue = 'Student Centre';
+                date = '15th Mar, 8:00 PM';
+                description = 'Time to dress up and dance! Join us for a themed night (e.g., Retro or Neon) with a live DJ. A great opportunity to socialize and unwind.';
+            } else if (eventName === 'Graffiti Wall Art Event') {
+                venue = 'Quad Area';
+                date = '8th Mar, 1:00 PM';
+                description = 'Unleash your inner artist! Contribute to a massive, temporary campus mural. All paint and supplies are provided. No experience necessary.';
+            }
+            modalVenue.textContent = `Venue: ${venue}`;
+            modalDate.textContent = `Date: ${date}`;
+            modalDesc.innerHTML = description;
+            modalRegisterBtn.href = registerLink;
+            eventModal.style.display = 'block';
+        }
+        //Open guidelines modal
+        function openGuidelinesModal() {
+            closeModal('eventModal'); 
+            guidelinesModal.style.display = 'block';
+        }
+        // Close specific modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        // Close modal
+        window.onclick = function (event) {
+            if (event.target === eventModal) {
+                closeModal('eventModal');
+            } else if (event.target === guidelinesModal) {
+                closeModal('guidelinesModal');
+            }
+        }
+    </script>
+</body>
+</html>
