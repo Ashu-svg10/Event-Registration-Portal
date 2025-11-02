@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Spooky Event Registration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Creepster&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+        rel="stylesheet">
+    <style>
+        /* BASE STYLES */
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            margin: 0;
+            padding-top: 20px;
+            line-height: 1.6; 
+            color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            
+            /* HALLOWEEN THEME BACKGROUND - Ready for your image path */
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), 
+                        /* 👇 PLACE YOUR IMAGE FILE PATH/LINK HERE 👇 */
+                        url('pic.jpg') center center fixed; 
+            background-size: cover;
+            box-shadow: inset 0 0 100px rgba(255, 69, 0, 0.1), inset 0 0 100px rgba(138, 43, 226, 0.1);
+        }
+        
+        /* MAIN CONTENT - THE FORM CONTAINER */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* 💡 CHANGED PADDING: Reduced from 30px 50px to 25px 40px */
+            padding: 25px 40px;
+            background-color: rgba(34, 34, 34, 0.95); 
+            border-radius: 15px; 
+            margin: 30px auto;
+            /* 💡 CHANGED MAX-WIDTH: Reduced from 650px to 500px */
+            max-width: 500px;
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.5), 0 0 40px rgba(138, 43, 226, 0.5);
+            border: 2px solid #8A2BE2;
+            transition: border-color 0.5s ease;
+        }
+        .main-content:hover {
+            border-color: #FF4500;
+        }
+
+        /* HALLOWEEN TITLE STYLES */
+        .main-content h1 {
+            font-family: 'Creepster', cursive;
+            /* Using the smaller size from your previous request */
+            font-size: 2.5em; 
+            color: #FF4500;
+            text-shadow: 
+                -1px -1px 0 #000, 
+                1px -1px 0 #000, 
+                -1px 1px 0 #000, 
+                1px 1px 0 #000,
+                0 0 15px #8A2BE2;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        /* FORM STYLES */
+        .registration-form {
+            width: 100%;
+            padding: 0;
+        }
+
+        .form-group {
+            margin-bottom: 25px; 
+            text-align: left;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #FFD700;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group select {
+            width: 100%;
+            /* 💡 CHANGED PADDING: Reduced from 12px to 10px */
+            padding: 10px;
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+            border: 1px solid #8A2BE2; 
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            
+        }
+        
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group select:focus {
+            border-color: #FF4500;
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+        }
+
+        /* SELECT-SPECIFIC STYLING for the dropdown arrow */
+        .form-group select {
+            background-image: linear-gradient(45deg, transparent 50%, #FF4500 50%),
+                              linear-gradient(135deg, #FF4500 50%, transparent 50%);
+            background-position: calc(100% - 20px) calc(1em + 2px),
+                                 calc(100% - 15px) calc(1em + 2px);
+            background-size: 5px 5px, 5px 5px;
+            background-repeat: no-repeat;
+        }
+
+        .form-group select option {
+            background-color: #222;
+            color: #f0f0f0;
+        }
+
+
+        /* SUBMIT BUTTON */
+        .submit-btn {
+            display: block;
+            width: 100%;
+            /* 💡 CHANGED PADDING: Reduced from 15px to 12px */
+            padding: 12px; 
+            margin-top: 40px; 
+            background-color: #FF4500; 
+            color: #222; 
+            border: 3px solid #FFD700;
+            border-radius: 10px;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: background-color .3s, transform .2s, box-shadow .3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #8A2BE2;
+            color: #FFD700;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.7);
+        }
+
+        /* FOOTER DECORATION - A subtle touch */
+        .decoration-line {
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #FF4500, #8A2BE2, transparent);
+            margin: 20px 0 0;
+        }
+
+        @media (max-width: 767px) {
+            .main-content {
+                margin: 10px;
+                padding: 20px;
+            }
+            .main-content h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <h1>💀 Registration Form 👻</h1>
+
+        <form class="registration-form" action="#" method="POST">
+            
+            <div class="form-group">
+                <label for="full-name">Full Name *</label>
+                <input type="text" id="full-name" name="full_name" required placeholder="Enter the name on your tombstone">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required placeholder="Where the spirits can reach you">
+            </div>
+
+            <div class="form-group">
+                <label for="student-id">Student ID / Contact Number *</label>
+                <input type="text" id="student-id" name="student_id" required placeholder="Your contact from the afterlife">
+            </div>
+
+            <div class="form-group">
+                <label for="event-select">Select Event *</label>
+                <select id="event-select" name="event_select" required>
+                    <option value="" disabled selected>-- Choose a Ghastly Gala --</option>
+                    <option value="trivia">Pop Culture Trivia Event</option>
+                    <option value="diy">DIY Dorm Decor Event</option>
+                    <option value="esports">E-Sports Tournament</option>
+                    <option value="scavenger">Campus Scavenger Hunt Event</option>
+                    <option value="openmic">Open Mic Event</option>
+                    <option value="breakfast">Late-Night Breakfast Event</option>
+                    <option value="dance">Theme Dance Mixer Event</option>
+                    <option value="graffiti">Graffiti Wall Art Event</option>
+                </select>
+            </div>
+
+            <button type="submit" class="submit-btn">Summon Your Spot!</button>
+        </form>
+        
+        <div class="decoration-line"></div>
+
+    </div>
+</body>
+</html>
